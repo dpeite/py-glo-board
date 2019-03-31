@@ -56,9 +56,9 @@
 Python 3.6 or higher
 
 ## Installing
-Until is not uploaded to pypi, it's necessary to install using pip and this repository.  
+ 
 ```bash
-pip install https://github.com/dpeite/py-glo-board
+pip install py-glo-board
 ```
 
 ## Example
