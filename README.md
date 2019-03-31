@@ -14,11 +14,11 @@
 
 **Boards**
 
+- [x] Get Boards
 - [x] Create Board
+- [x] Get Boards by ID
 - [x] Edit Board
 - [x] Delete Board
-- [x] Get Boards
-- [x] Get Boards by ID
 
 **Columns**
 - [x] Create column
@@ -26,25 +26,34 @@
 - [x] Delete column
 
 **Cards**
+- [x] Get Cards
 - [x] Create Card
+- [X] Create Cards batch
+- [x] Get Card By ID
 - [x] Edit Card
 - [x] Delete Card
-- [x] Get Cards
-- [x] Get Card By ID
 - [x] Get Cards By Column ID
 
+**Labels**
+- [x] Create Label
+- [x] Edit Label
+- [x] Delete Label
+
 **Attachments**
-- [ ] Create Attachment
-- [ ] Get Attachments
+- [X] Get Attachments
+- [X] Create Attachment
 
 **Comments**
-- [ ] Create Comment
-- [ ] Edit Comment
-- [ ] Delete Comment
-- [ ] Get Comments By Card ID
+- [x] Get Comments By Card ID
+- [x] Create Comment
+- [x] Edit Comment
+- [x] Delete Comment
 
 **User**
-- [ ] Get User
+- [x] Get User
+
+## Requirements
+Python 3.6 or higher
 
 ## Installing
 Until is not uploaded to pypi, it's necessary to install using pip and this repository.  
@@ -66,7 +75,7 @@ fields=['archived_columns', 'archived_date', 'columns', 'created_by', 'created_d
 boards = globoard.get_boards(fields, per_page=3)
 
 # Get card
-globoard.get_card('<BOARD_ID>', 'CARD_ID').to_dict()
+globoard.get_card('<BOARD_ID>', '<CARD_ID>').to_dict()
 
 ```
 

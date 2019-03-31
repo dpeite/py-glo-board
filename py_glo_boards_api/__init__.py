@@ -63,8 +63,12 @@ class GloBoard:
         card = api.create_card(self.token, board_id, column_id, card_name, position, description, assignees, labels, due_date)
         return types.Card.de_json(card)
 
-    def create_card_batch(self):
-        raise NotImplementedError
+    def create_card_batch(self, board_id, batch):
+        cards = api.create_card_batch(self.token, board_id, batch)
+        ret = []
+        for card in cards:
+            ret.append(types.Card.de_json(card))
+        return ret
 
     def get_card(self, board_id, card_id, fields=None):
         card = api.get_card(self.token, board_id, card_id, fields)
@@ -80,6 +84,7 @@ class GloBoard:
         result = api.delete_card(self.token, board_id, card_id)
         return result
 
+    # Labels
     def create_label(self, board_id, label):
         label = api.create_label(self.token, board_id, label)
         return types.Label.de_json(label)
@@ -92,9 +97,39 @@ class GloBoard:
         result = api.delete_label(self.token, board_id, label_id)
         return result
 
-    # def get_attachments(self, board_id, card_id, fields=None, archived=False, page=1, per_page=50, sort='asc'):
-    #     attachments = api.get_attachments(board_id, card_id, fields, archived, page, per_page, sort)
-    #     ret = []
-    #     for attachment in attachments:
-    #         ret.append(types.Attachment.de_json(attachment))
-    #     return ret
+    # Attachments
+    def get_attachments(self, board_id, card_id, fields=None, archived=False, page=1, per_page=50, sort='asc'):
+        attachments = api.get_attachments(self.token, board_id, card_id, fields, archived, page, per_page, sort)
+        ret = []
+        for attachment in attachments:
+            ret.append(types.Attachment.de_json(attachment))
+        return ret
+
+    def create_attachment(self, board_id, card_id, attachment):
+        attachment = api.create_attachment(self.token, board_id, card_id, attachment)
+        return types.Attachment.de_json(attachment)
+
+    # Comments
+    def get_comments(self, board_id, card_id, fields=None, archived=False, page=1, per_page=50, sort='asc'):
+        comments = api.get_comments(self.token, board_id, card_id, fields, archived, page, per_page, sort)
+        ret = []
+        for comment in comments:
+            ret.append(types.Comment.de_json(comment))
+        return ret
+
+    def create_comment(self, board_id, card_id, comment):
+        comment = api.create_comment(self.token, board_id, card_id, comment)
+        return types.Comment.de_json(comment)
+
+    def edit_comment(self, board_id, card_id, comment_id, comment):
+        comment = api.edit_comment(self.token, board_id, card_id, comment_id, comment)
+        return types.Comment.de_json(comment)
+
+    def delete_comment(self, board_id, card_id, comment_id):
+        result = api.delete_comment(self.token, board_id, card_id, comment_id)
+        return result
+
+    # User
+    def get_user(self, fields=None):
+        user = api.get_user(self.token, fields)
+        return types.User.de_json(user)

@@ -74,6 +74,7 @@ class Board:
             'members': [member.to_dict() for member in self.members] if self.members else None
         }
 
+
 class BoardMember:
     @classmethod
     def de_json(cls, obj):
@@ -285,16 +286,83 @@ class Attachment:
         id = obj.get('id')
         filename = obj.get('filename')
         mime_type = obj.get('mime_type')
-        return cls(id, filename, mime_type)
+        url = obj.get('url')
+        return cls(id, filename, mime_type, url)
 
-    def __init__(self, id, filename, mime_type):
+    def __init__(self, id, filename, mime_type, url):
         self.id = id
         self.filename = filename
         self.mime_type = mime_type
+        self.url = url
 
     def to_dict(self):
         return {
             'id': self.id,
             'filename': self.filename,
-            'mime_type': self.mime_type
+            'mime_type': self.mime_type,
+            'url': self.url
+        }
+
+
+class Comment:
+    @classmethod
+    def de_json(cls, obj):
+        id = obj.get('id')
+        card_id = obj.get('card_id')
+        board_id = obj.get('board_id')
+        updated_date = obj.get('archived_date')
+        if updated_date:
+            updated_date = datetime.strptime(updated_date, "%Y-%m-%dT%H:%M:%S.%fZ")
+        created_date = obj.get('created_date')
+        if created_date:
+            created_date = datetime.strptime(created_date, "%Y-%m-%dT%H:%M:%S.%fZ")
+        created_by = obj.get('created_by')
+        updated_by = obj.get('updated_by')
+        text = obj.get('text')
+        return cls(id, card_id, board_id, updated_date, created_date, created_by, updated_by, text)
+
+    def __init__(self, id, card_id, board_id, updated_date, created_date, created_by, updated_by, text):
+        self.id = id
+        self.card_id = card_id
+        self.board_id = board_id
+        self.updated_date = updated_date
+        self.created_date = created_date
+        self.created_by = created_by
+        self.updated_by = updated_by
+        self.text = text
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'card_id': self.card_id,
+            'board_id': self.board_id,
+            'updated_date': self.updated_date.strftime("%Y-%m-%dT%H:%M:%S.%fZ") if self.updated_date else None,
+            'created_date': self.created_date.strftime("%Y-%m-%dT%H:%M:%S.%fZ") if self.created_date else None,
+            'created_by': self.created_by,
+            'updated_by': self.updated_by,
+            'text': self.text,
+        }
+
+
+class User:
+    @classmethod
+    def de_json(cls, obj):
+        id = obj.get('id')
+        name = obj.get('name')
+        username = obj.get('username')
+        email = obj.get('email')
+        return cls(id, name, username, email)
+
+    def __init__(self, id, name, username, email):
+        self.id = id
+        self.name = name
+        self.username = username
+        self.email = email
+
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'username': self.username,
+            'email': self.email
         }
