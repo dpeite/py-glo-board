@@ -12,8 +12,6 @@
 **API Endpoints:**
 >This package supports the following v1 [Glo Boards API endpoints](https://gloapi.gitkraken.com/v1/docs/)  
 
-**Actually working in implementing webhooks**  
-
 **Boards**
 
 - [x] Get Boards
