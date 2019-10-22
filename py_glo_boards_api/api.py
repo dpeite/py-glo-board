@@ -134,7 +134,7 @@ def get_card(token, board_id, card_id, fields):
     return _make_request(token, method_name, 'get', params=params)
 
 
-def edit_card(token, board_id, card_id, card_name, position=None, description=None,
+def edit_card(token, board_id, card_id, card_name, column_id=None, position=None, description=None,
               assignees=None, labels=None, due_date=None):
     method_name = 'boards/{}/cards/{}'.format(board_id, card_id)
     data = {'name': card_name}
@@ -148,6 +148,8 @@ def edit_card(token, board_id, card_id, card_name, position=None, description=No
         data['labels'] = labels
     if due_date:
         data['due_date'] = due_date
+    if column_id:
+        data['column_id'] = column_id
 
     return _make_request(token, method_name, 'post', json_params=data)
 
