@@ -9,7 +9,6 @@ def _make_request(token, method_name, method='get', params={}, json_params=None,
     payload = {'access_token': token}
     payload.update(params)
     result = requests.request(method, API_URL.format(method_name), params=payload, json=json_params, files=files, timeout=CONNECT_TIMEOUT)
-    print(result.status_code)
     if result.status_code == 204:
         return True
     if result.status_code == 400 or result.status_code == 404:
