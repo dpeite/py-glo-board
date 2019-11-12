@@ -9,7 +9,6 @@ def _make_request(token, method_name, method='get', params={}, json_params=None,
     payload = {'access_token': token}
     payload.update(params)
     result = requests.request(method, API_URL.format(method_name), params=payload, json=json_params, files=files, timeout=CONNECT_TIMEOUT)
-    print(result.status_code)
     if result.status_code == 204:
         return True
     if result.status_code == 400 or result.status_code == 404:
@@ -134,7 +133,7 @@ def get_card(token, board_id, card_id, fields):
     return _make_request(token, method_name, 'get', params=params)
 
 
-def edit_card(token, board_id, card_id, card_name, position=None, description=None,
+def edit_card(token, board_id, card_id, card_name, column_id=None, position=None, description=None,
               assignees=None, labels=None, due_date=None):
     method_name = 'boards/{}/cards/{}'.format(board_id, card_id)
     data = {'name': card_name}
@@ -148,6 +147,8 @@ def edit_card(token, board_id, card_id, card_name, position=None, description=No
         data['labels'] = labels
     if due_date:
         data['due_date'] = due_date
+    if column_id:
+        data['column_id'] = column_id
 
     return _make_request(token, method_name, 'post', json_params=data)
 

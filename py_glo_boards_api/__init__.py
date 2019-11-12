@@ -74,10 +74,10 @@ class GloBoard:
         card = api.get_card(self.token, board_id, card_id, fields)
         return types.Card.de_json(card)
 
-    def edit_card(self, board_id, card_id, card_name, position=None, description=None,
+    def edit_card(self, board_id, card_id, card_name, column_id=None, position=None, description=None,
                     assignees=None, labels=None, due_date=None):
         #TODO Test the optional parameters
-        card = api.edit_card(self.token, board_id, card_id, card_name, position, description, assignees, labels, due_date)
+        card = api.edit_card(self.token, board_id, card_id, card_name, column_id, position, description, assignees, labels, due_date)
         return types.Card.de_json(card)
 
     def delete_card(self, board_id, card_id):
