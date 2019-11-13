@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setup(
     name="py-glo-board",
-    version="1.0.1",
+    version="1.0.2",
     author="Daniel Vilar Peiteado",
     author_email="danielvilar2@gmail.com",
     description="Python client for GitKraken Glo Boards API",
